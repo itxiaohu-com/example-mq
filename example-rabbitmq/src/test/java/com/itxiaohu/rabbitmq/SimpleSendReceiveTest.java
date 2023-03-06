@@ -6,9 +6,10 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class RabbitMQTest {
+public class SimpleSendReceiveTest {
 
     private static final String EXCHANGE_NAME = "exchange_demo";
+    private static final String BINDING_KEY = "routing_key_demo";
     private static final String ROUTING_KEY = "routing_key_demo";
     private static final String QUEUE_NAME = "queue_demo";
     private static final String IP_ADDRESS = "127.0.0.1";
@@ -20,7 +21,7 @@ public class RabbitMQTest {
         factory.setHost(IP_ADDRESS);
         factory.setPort(PORT);
         factory.setUsername("admin");
-        factory.setPassword("admin");
+        factory.setPassword("123456");
 
         // 创建连接
         Connection connection = factory.newConnection();
@@ -34,7 +35,7 @@ public class RabbitMQTest {
         channel.queueDeclare(QUEUE_NAME, true, false, false, null);
 
         // 将交换器与队列通过路由键绑定
-        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY);
+        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, BINDING_KEY);
 
         String message = "hello,hello!";
 
@@ -54,7 +55,7 @@ public class RabbitMQTest {
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUsername("admin");
-        factory.setPassword("admin");
+        factory.setPassword("123456");
 
         // 创建连接
         Connection connection = factory.newConnection();
